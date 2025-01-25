@@ -4,22 +4,22 @@ using UnityEngine;
 public class View : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Timer _timer;
+    [SerializeField] private Counter _stopwatch;
 
     private void OnEnable()
     {
-        _timer.Displayed += Display;
+        _stopwatch.Displayed += Display;
     }
 
     private void OnDisable()
     {
-        _timer.Displayed -= Display;
+        _stopwatch.Displayed -= Display;
     }
 
     public void Display()
     {
-        float currentTime = _timer.CurrentTime;
+        float currentCount = _stopwatch.CurrentTime;
 
-        _text.text = currentTime.ToString("");
+        _text.text = currentCount.ToString("");
     }
 }

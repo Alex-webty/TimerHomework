@@ -1,17 +1,18 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Timer : MonoBehaviour
+public class Counter : MonoBehaviour
 {
     private KeyCode _key = KeyCode.Mouse0;
-    private bool _isTimerRunning;
-    private float _timerInterval = 0.5f;
+    private bool _isRunning;
+    private float _interval = 0.5f;
     private float _currentTime = 0f;
+    private Coroutine _coroutine;
 
-    public float CurrentTime => _currentTime;
     public event UnityAction Displayed;
+    public float CurrentTime => _currentTime;
+    
     
     private void Update()
     {
@@ -22,7 +23,7 @@ public class Timer : MonoBehaviour
     {
         if (Input.GetKeyDown(_key))
         {
-            if (_isTimerRunning)
+            if (_isRunning)
             {
                 StopTimer();
             }
@@ -35,25 +36,28 @@ public class Timer : MonoBehaviour
 
     private void StartTimer()
     {
-        _isTimerRunning = true;
+        _isRunning = true;
 
-        StartCoroutine(IncreaseTime());
+        _coroutine = StartCoroutine(IncreaseTime());
         Debug.Log("таймер запущен");
     }
 
     private void StopTimer()
     {
-        _isTimerRunning = false;
+        _isRunning = false;
 
-        StopCoroutine(IncreaseTime());
-        Debug.Log("таймер остановлен");
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            Debug.Log("таймер остановлен");
+        }
     }
 
     private IEnumerator IncreaseTime()
     {
-        WaitForSeconds wait = new WaitForSeconds(_timerInterval);
+        WaitForSeconds wait = new WaitForSeconds(_interval);
 
-        while (_isTimerRunning)
+        while (_isRunning)
         {
             yield return wait;
 

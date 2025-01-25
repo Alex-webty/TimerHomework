@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 2027072979}
-  _timer: {fileID: 1553966042}
+  _stopwatch: {fileID: 1553966042}
 --- !u!1 &2027072976
 GameObject:
   m_ObjectHideFlags: 0

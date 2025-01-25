@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Counter : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class Counter : MonoBehaviour
     private float _currentTime = 0f;
     private Coroutine _coroutine;
 
-    public event UnityAction Displayed;
+    public event Action <float> Displayed;
     public float CurrentTime => _currentTime;
     
     
@@ -61,9 +61,9 @@ public class Counter : MonoBehaviour
         {
             yield return wait;
 
-            _currentTime += 1;
+            _currentTime++;
 
-            Displayed?.Invoke();
+            Displayed?.Invoke(_currentTime);
         }
     }
 }
